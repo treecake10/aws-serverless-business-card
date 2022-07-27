@@ -1,0 +1,65 @@
+.editBtn {
+    padding: 2px 5px;
+    border-radius: 5px;
+    color: darkblue;
+    border: 1px solid rgba(0, 0, 139, 0.596);
+    cursor: pointer;
+}
+
+.deleteBtn {
+    padding: 2px 5px;
+    border-radius: 5px;
+    color: crimson;
+    border: 1px solid rgba(220, 20, 60, 0.6);
+    cursor: pointer;
+}
+
+.cell-container {
+    display: flex;
+    gap: 25px;
+}
+
+.create-btn {
+    width: 100px;
+    height: 40px;
+    margin: 10px;
+    border: none;
+    background-color: darkblue;
+    color: white;
+    border-radius: 8px;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 5px 5px 25px -5px rgba(0, 0, 0, 0.5);
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-input {
+    width: 20vw;
+}
+
+.yes-Modal {
+    background-color: green;
+    color: white;
+    font-weight: bold;
+    width: 60px;
+    height: 30px;
+    margin-right: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.no-Modal {
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    width: 60px;
+    height: 30px;
+    margin-left: 10px;
+    border: none;
+    cursor: pointer;
+}

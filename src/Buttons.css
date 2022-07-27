@@ -1,0 +1,43 @@
+.logout {
+    color: white;
+    background-color: red;
+    border: none;
+    border-radius: 10px;
+    height: 4vh;
+    width: 4vw;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.login {
+    color: white;
+    background-color: blue;
+    border: none;
+    border-radius: 10px;
+    height: 4vh;
+    width: 4vw;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.submit {
+    color: white;
+    background-color: darkblue;
+    border: none;
+    border-radius: 10px;
+    height: 4vh;
+    width: 4vw;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.text-input {
+    width: 20vw;
+    height: 3vh;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
