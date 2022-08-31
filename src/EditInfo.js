@@ -24,7 +24,9 @@ const EditInfo = (props) => {
       console.log("Session: ", session.accessToken["payload"]["username"]);
 
       setStatus(true);
+
       setUserName(session.accessToken["payload"]["username"]);
+      console.log("the usr: ", userName);
 
       var tempUrl = 'https://e6qeq4q9o0.execute-api.us-east-1.amazonaws.com/usr/user?username=' + session.accessToken["payload"]["username"];
       setUserUrl(tempUrl);
@@ -35,23 +37,22 @@ const EditInfo = (props) => {
 
   useEffect(() => {
 
-    fetchImages()
+    getSession().then((session) => {
+      fetchImages(session.accessToken["payload"]["username"])
+    })
 
   }, []);
   
-  async function fetchImages() {
+  async function fetchImages(sessionUsrName) {
 
-    let imageKeys = await Storage.list(userName+'.png')
+    let imageKeys = await Storage.list(sessionUsrName+'.png')
 
     imageKeys = await Promise.all(imageKeys.map(async k => {
       const key = await Storage.get(k.key)
       return key
     }))
 
-    console.log('imageKeys: ', imageKeys)
-
     setImages(imageKeys)
-
     console.log("images: ", images[0])
 
   }
@@ -69,8 +70,6 @@ const EditInfo = (props) => {
     })
 
     console.log({ result })
-
-    fetchImages()
 
   }
 

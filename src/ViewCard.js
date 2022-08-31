@@ -7,7 +7,7 @@ import './Buttons.css';
 
 const ViewCard = (props) => {
 
-  const { getSession, logout} = useContext(AccountContext);
+  const {getSession, logout} = useContext(AccountContext);
   const [ status, setStatus ] = useState(false);
   const [age, setAge] = useState(0);
   const [birthday, setBirthday] = useState('');
@@ -20,7 +20,6 @@ const ViewCard = (props) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [images, setImages] = useState([]);
   const [user, setUser] = useState('');
-  const [userName, setUserName] = useState('');
 
   useEffect(() => {
 
@@ -29,10 +28,9 @@ const ViewCard = (props) => {
       console.log("Session: ", session.accessToken["payload"]["username"]);
 
       setStatus(true);
+      
       setUser(session.accessToken["payload"]["username"]);
-
-      setUserName(user);
-      console.log("the usr: ", userName);
+      console.log("the usr: ", user);
       
       const tempUrl = 'https://e6qeq4q9o0.execute-api.us-east-1.amazonaws.com/usr/user?username=' + session.accessToken["payload"]["username"];
 
