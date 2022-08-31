@@ -9,9 +9,6 @@ const ViewCard = (props) => {
 
   const { getSession, logout} = useContext(AccountContext);
   const [ status, setStatus ] = useState(false);
-
-  const [message, setMessage] = useState(null);
-
   const [age, setAge] = useState(0);
   const [birthday, setBirthday] = useState('');
   const [city, setCity] = useState('');
@@ -21,7 +18,6 @@ const ViewCard = (props) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-
   const [images, setImages] = useState([]);
   const [user, setUser] = useState('');
   const [userName, setUserName] = useState('');
@@ -35,9 +31,8 @@ const ViewCard = (props) => {
       setStatus(true);
       setUser(session.accessToken["payload"]["username"]);
 
-      console.log("the usr: ", user);
-
       setUserName(user);
+      console.log("the usr: ", userName);
       
       const tempUrl = 'https://e6qeq4q9o0.execute-api.us-east-1.amazonaws.com/usr/user?username=' + session.accessToken["payload"]["username"];
 
@@ -70,18 +65,24 @@ const ViewCard = (props) => {
 
   useEffect(() => {
 
-    fetchImages()
+    getSession().then((session) => {
+      fetchImages(session.accessToken["payload"]["username"])
+    })
 
   }, []);
 
-  async function fetchImages() {
-    let imageKeys = await Storage.list(userName+'.png')
+  async function fetchImages(sessionUsrName) {
+
+    let imageKeys = await Storage.list(sessionUsrName+'.png')
+
     imageKeys = await Promise.all(imageKeys.map(async k => {
       const key = await Storage.get(k.key)
       return key
     }))
+
     console.log('imageKeys: ', imageKeys)
     setImages(imageKeys)
+
   }
 
   const logoutHandler = () => {
@@ -90,6 +91,7 @@ const ViewCard = (props) => {
   }
   
   return (
+
     <div>
 
       {status ? 
@@ -121,6 +123,7 @@ const ViewCard = (props) => {
       : ""}
 
     </div>
+
   )
 }
 

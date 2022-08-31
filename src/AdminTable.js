@@ -61,7 +61,12 @@ const AdminTable = (props) => {
       }
 
       await axios.patch(userUrl, requestModifyBody).then(response => {
+        
           setMessage('Information Successfully Updated');
+
+          setEditPopup(false);
+          window.location.reload();
+
       }).catch(error => {
           if (error.response.status === 401) {
               setMessage(error.response.data.message);
@@ -69,18 +74,13 @@ const AdminTable = (props) => {
               setMessage('sorry....the backend server is down!! please try again later');
           }
       })
-
-      setEditPopup(false);
-      window.location.reload();
   
     }
   
     const delUsr = async () => {
 
-      const userUrl = 'https://e6qeq4q9o0.execute-api.us-east-1.amazonaws.com/usr/deleteuser';
-      //const delUsrUrl = 'https://e6qeq4q9o0.execute-api.us-east-1.amazonaws.com/usr/user';
+      const userUrl = 'https://e6qeq4q9o0.execute-api.us-east-1.amazonaws.com/usr/user';
       
-
       await axios.delete(userUrl, {
         headers: {
           'Access-Control-Allow-Origin': '*',
@@ -91,6 +91,13 @@ const AdminTable = (props) => {
       })
       
       .then(response => {
+
+        setCancelPopup(false);
+
+        // Remove the selected appointment row from the data grid
+        setDataGridRows(dataGridRows.filter((item) => item.rowID !== rowID));
+
+        window.location.reload();
        
       }).catch(error => {
           if (error.response.status === 401) {
@@ -99,35 +106,6 @@ const AdminTable = (props) => {
               setMessage('sorry....the backend server is down!! please try again later');
           }
       })
-
-      /*
-      await axios.delete(delUsrUrl, {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        },
-        data: {
-          username: username,
-        },
-      })
-      
-      .then(response => {
-        setCancelPopup(false);
-
-        // Remove the selected appointment row from the data grid
-        setDataGridRows(dataGridRows.filter((item) => item.rowID !== rowID));
-        
-        //setMessage('Information Successfully Updated');
-      }).catch(error => {
-          if (error.response.status === 401) {
-              setMessage(error.response.data.message);
-          } else {
-              setMessage('sorry....the backend server is down!! please try again later');
-          }
-      })
-      */
-      
-
-      //window.location.reload();
    
     }
 

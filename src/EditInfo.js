@@ -10,39 +10,48 @@ const EditInfo = (props) => {
 
   const { getSession, logout } = useContext(AccountContext);
   const [ status, setStatus ] = useState(false);
-
   const [message, setMessage] = useState(null);
   const [inputDetail, setInputDetail] = useState('');
   const [selectedValue, setSelectedValue] = useState(null);
   const [images, setImages] = useState([]);
-
   const [userName, setUserName] = useState('');
   const [userUrl, setUserUrl] = useState('');
 
   useEffect(() => {
+
     getSession().then((session) => {
+
       console.log("Session: ", session.accessToken["payload"]["username"]);
+
       setStatus(true);
       setUserName(session.accessToken["payload"]["username"]);
+
       var tempUrl = 'https://e6qeq4q9o0.execute-api.us-east-1.amazonaws.com/usr/user?username=' + session.accessToken["payload"]["username"];
       setUserUrl(tempUrl);
+
     })
+
   }, []);
 
   useEffect(() => {
+
     fetchImages()
+
   }, []);
   
   async function fetchImages() {
 
     let imageKeys = await Storage.list(userName+'.png')
+
     imageKeys = await Promise.all(imageKeys.map(async k => {
       const key = await Storage.get(k.key)
       return key
     }))
 
     console.log('imageKeys: ', imageKeys)
+
     setImages(imageKeys)
+
     console.log("images: ", images[0])
 
   }
@@ -60,17 +69,22 @@ const EditInfo = (props) => {
     })
 
     console.log({ result })
+
     fetchImages()
 
   }
 
   const handleChange = e => {
+
     setSelectedValue(e.value);
+
   }
 
   const logoutHandler = () => {
+
     logout();
     props.history.push('login');
+
   }
 
   const submitHandler = (event) => {
@@ -89,7 +103,9 @@ const EditInfo = (props) => {
     }
 
     axios.patch(userUrl, requestBody).then(response => {
+
         setMessage('Information Successfully Updated');
+        
     }).catch(error => {
         if (error.response.status === 401) {
             setMessage(error.response.data.message);
@@ -97,7 +113,6 @@ const EditInfo = (props) => {
             setMessage('sorry....the backend server is down!! please try again later');
         }
     })
-    
     
   }
 
@@ -129,7 +144,7 @@ const EditInfo = (props) => {
 
       {status && message && <p className="message">{message}</p>}
 
-      <br/>
+        <br/>
 
       {status ? 
 

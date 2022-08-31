@@ -7,8 +7,11 @@ const AccountContext = createContext();
 const Account = (props) => {
 
     const getSession = async () => {
+
         return await new Promise((resolve, reject) => {
+
             const user = Pool.getCurrentUser();
+            
             if(user) {
                 user.getSession((err, session) => {
                     if (err) {
@@ -21,13 +24,14 @@ const Account = (props) => {
                 reject();
             }
         })
+
     }
 
     const authenticate = async (Username, Password) => {
+
         return await new Promise((resolve, reject) => {
 
             const user = new CognitoUser({ Username, Pool })
-        
             const authDetails = new AuthenticationDetails({ Username, Password })
         
             user.authenticateUser(authDetails, {
@@ -46,20 +50,27 @@ const Account = (props) => {
                 },
             });
         });
+
     };
 
     const logout = () => {
+
         const user = Pool.getCurrentUser();
+
         if(user) {
             user.signOut();
         }
+
     }
 
     return (
+
         <AccountContext.Provider value={{ authenticate, getSession, logout}}>
             {props.children}
         </AccountContext.Provider>
+
     );
+
 };
 
 export { Account, AccountContext };

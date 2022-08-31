@@ -11,17 +11,20 @@ const AdminLogin = (props) => {
   const [errorMessage, setErrorMessage] = useState(null);
 
   const submitHandler = (event) => {
+
     event.preventDefault();
+
     if (username.trim() === '' || password.trim() === '') {
       setErrorMessage('Both username and password are required');
       return;
     }
+    
     setErrorMessage(null);
 
     authenticate(username, password)
       .then(data => {
 
-        let hasKey = data.hasOwnProperty('data.accessToken["payload"]["cognito:groups"]');
+        //let hasKey = data.hasOwnProperty('data.accessToken["payload"]["cognito:groups"]');
 
         console.log(data.accessToken["payload"]["cognito:groups"][0]);
 

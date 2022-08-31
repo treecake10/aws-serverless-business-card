@@ -11,8 +11,11 @@ import AdminTable from "./AdminTable";
 function App() {
 
   return (
+
     <div className="App">
+
       <BrowserRouter>
+
       <div className="header">
         <NavLink activeClassName="active" to="/register">Register</NavLink>
         <NavLink activeClassName="active" to="/login">Login</NavLink>
@@ -20,7 +23,9 @@ function App() {
         <NavLink activeClassName="active" to="/edit-info">Edit Info</NavLink>
         <NavLink activeClassName="active" to="/admin-login">Admin Login</NavLink>
       </div>
+
       <div className="content">
+
         <Switch>
           
           <Account>
@@ -33,10 +38,15 @@ function App() {
           </Account>
           
         </Switch>
+
       </div>
+
       </BrowserRouter>
+
     </div>
+
   );
+  
 }
 
 export default App;
